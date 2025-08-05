@@ -1,6 +1,7 @@
 from flask import Flask, render_template_string, request, redirect, url_for
 from flask_socketio import SocketIO, join_room, emit
 import uuid
+import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'couplegame'
@@ -100,5 +101,4 @@ def set_category(data):
     emit("message", f"Category set to: {category}", to=room)
 
 if __name__ == "__main__":
-    socketio.run(app, debug=True)
-
+    socketio.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
